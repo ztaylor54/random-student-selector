@@ -14,6 +14,10 @@ public class GUI {
 
     private int count = 0;
 
+    /*prevent duplicate names from being called*/
+    private String previousName = "";
+    /*prevent duplicate names from being called*/
+
     /*Set Classes*/
     private static String[] secondPeriod = {"Daniel", "Dalton", "Devin", "Ja\'Mesha", "Chelsea", "Hank", "Jacqui",
             "Matthew", "Nick", "Ben", "Chris", "Sean", "Chase", "Zeb",  "Jacob", "Noah", "Aaron", "Zack"};
@@ -88,7 +92,7 @@ public class GUI {
     public String getRandom(int n) {
         Random randomGenerator = new Random();
         String[] arr = {};
-
+        boolean valid = false;
         switch (comboBox1.getSelectedIndex()) {
             case 0:
                 arr = secondPeriod;
@@ -100,7 +104,23 @@ public class GUI {
                 arr = sixthPeriod;
                 break;
         }
-        int index = randomGenerator.nextInt(arr.length);
+
+        /*prevent duplicate names from being called*/
+        int index = 0;
+        while(!valid) {
+            index = randomGenerator.nextInt(arr.length);
+            if(previousName.equals("")) {
+                break;
+            } else {
+                if (previousName.equals(arr[index])) {
+                } else {
+                    valid = true;
+                }
+            }
+        }
+        previousName = arr[index];
+        /*prevent duplicate names from being called*/
+
         return arr[index];
     }
 
